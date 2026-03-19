@@ -169,7 +169,7 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
       {/* Main content card */}
       <div
         key={JSON.stringify(step)}
-        className="animate-fade-in-up"
+        className="animate-fade-in"
         style={{
           width: "100%",
           maxWidth: "840px",

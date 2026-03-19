@@ -27,11 +27,12 @@ export default function WelcomeScreen({ config, onStart }: WelcomeScreenProps) {
       {/* Description */}
       <p
         style={{
-          fontSize: "18px",
-          lineHeight: "1.65",
-          color: "#4B5563",
+          fontSize: "clamp(22px, 3.5vw, 28px)",
+          lineHeight: "1.5",
+          fontWeight: 500,
+          color: "#374151",
           marginBottom: "48px",
-          maxWidth: "520px",
+          maxWidth: "540px",
         }}
       >
         {scorecardDescription}

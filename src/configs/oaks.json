@@ -1,0 +1,188 @@
+{
+  "clientSlug": "oaks",
+  "clientName": "Oaks Financial Services",
+  "scorecardTitle": "Tax Leak Scorecard",
+  "scorecardDescription": "Answer 12 quick questions to find out if you're losing money to avoidable taxes in retirement.",
+  "branding": {
+    "primaryColor": "#1B3A5C",
+    "accentColor": "#C9A84C"
+  },
+  "bookingUrl": "https://calendly.com/placeholder",
+  "bookingCtaText": "Schedule Your Free Tax Leak Review",
+  "webhookEnvKey": "WEBHOOK_URL_OAKS",
+  "sections": [
+    {
+      "title": "Income Sources & Withdrawal Order",
+      "questions": [
+        {
+          "id": "q1",
+          "text": "Do you have a clear plan for the order in which you'll draw from your various retirement accounts (401k, IRA, Roth, brokerage)?",
+          "options": [
+            { "text": "Yes, I follow a specific, tax-optimized withdrawal sequence", "score": 3 },
+            { "text": "I have a general idea but haven't formalized a strategy", "score": 2 },
+            { "text": "I mostly withdraw based on immediate need", "score": 1 },
+            { "text": "I'm not sure what the most tax-efficient approach would be", "score": 0 }
+          ]
+        },
+        {
+          "id": "q2",
+          "text": "Are you aware of how different income sources (pensions, Social Security, IRA withdrawals, investment gains) interact to affect your total tax bill?",
+          "options": [
+            { "text": "Yes, I actively manage the mix to minimize taxes", "score": 3 },
+            { "text": "I understand the basics but don't actively manage it", "score": 2 },
+            { "text": "I know some income is taxed differently but haven't looked into it deeply", "score": 1 },
+            { "text": "I haven't really thought about how they interact", "score": 0 }
+          ]
+        },
+        {
+          "id": "q3",
+          "text": "Have you evaluated whether taking some income earlier in retirement (before Social Security or RMDs begin) could reduce your lifetime tax burden?",
+          "options": [
+            { "text": "Yes, I've modeled different scenarios with a professional", "score": 3 },
+            { "text": "I've thought about it but haven't run the numbers", "score": 2 },
+            { "text": "I've heard this might help but haven't explored it", "score": 1 },
+            { "text": "No, I plan to defer income as long as possible", "score": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Social Security Timing & Tax Interaction",
+      "questions": [
+        {
+          "id": "q4",
+          "text": "Have you analyzed how the timing of your Social Security benefits affects the taxation of those benefits?",
+          "options": [
+            { "text": "Yes, I've optimized my claiming strategy with taxes in mind", "score": 3 },
+            { "text": "I know timing matters but haven't done a detailed analysis", "score": 2 },
+            { "text": "I plan to claim based on age preference, not tax impact", "score": 1 },
+            { "text": "I didn't know Social Security timing affected my taxes", "score": 0 }
+          ]
+        },
+        {
+          "id": "q5",
+          "text": "Do you know what percentage of your Social Security benefits will be taxable based on your combined income?",
+          "options": [
+            { "text": "Yes, and I'm managing other income to minimize the taxable portion", "score": 3 },
+            { "text": "I know some of it is taxable but not the exact percentage", "score": 2 },
+            { "text": "I assume most or all of it will be taxed", "score": 1 },
+            { "text": "I didn't know Social Security benefits could be taxed", "score": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Roth Conversion Opportunities",
+      "questions": [
+        {
+          "id": "q6",
+          "text": "Have you explored whether converting some traditional IRA or 401(k) funds to a Roth IRA could save you money in the long run?",
+          "options": [
+            { "text": "Yes, I do strategic Roth conversions based on tax bracket analysis", "score": 3 },
+            { "text": "I've looked into it but haven't pulled the trigger", "score": 2 },
+            { "text": "I've heard about Roth conversions but don't understand the benefit", "score": 1 },
+            { "text": "No, I haven't considered this", "score": 0 }
+          ]
+        },
+        {
+          "id": "q7",
+          "text": "Are you aware of the 'tax bracket gap' — years when your income is lower (e.g., between retirement and Social Security/RMDs) that create a window for low-cost Roth conversions?",
+          "options": [
+            { "text": "Yes, I'm actively using this window for conversions", "score": 3 },
+            { "text": "I've heard about this but haven't acted on it", "score": 2 },
+            { "text": "I'm not sure when my income will be lower", "score": 1 },
+            { "text": "This is the first I'm hearing about this", "score": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "RMD Readiness & Tax Exposure",
+      "questions": [
+        {
+          "id": "q8",
+          "text": "Do you have a plan in place to manage Required Minimum Distributions (RMDs) so they don't push you into a higher tax bracket?",
+          "options": [
+            { "text": "Yes, I've been proactively reducing my pre-tax balance before RMDs start", "score": 3 },
+            { "text": "I know RMDs are coming but haven't planned for the tax impact", "score": 2 },
+            { "text": "I'll deal with RMDs when I have to", "score": 1 },
+            { "text": "I'm not sure what RMDs are or when they start", "score": 0 }
+          ]
+        },
+        {
+          "id": "q9",
+          "text": "Have you calculated how your RMDs (combined with other income) could affect your Medicare premiums through IRMAA surcharges?",
+          "options": [
+            { "text": "Yes, I factor IRMAA thresholds into my withdrawal planning", "score": 3 },
+            { "text": "I know higher income can increase Medicare costs but haven't planned for it", "score": 2 },
+            { "text": "I've heard of IRMAA but don't know how it applies to me", "score": 1 },
+            { "text": "I didn't know retirement income could affect Medicare premiums", "score": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Capital Gains & Portfolio Tax Efficiency",
+      "questions": [
+        {
+          "id": "q10",
+          "text": "Are you strategically managing capital gains in your taxable investment accounts — for example, harvesting losses or timing sales to stay in lower brackets?",
+          "options": [
+            { "text": "Yes, I actively manage gains and losses for tax efficiency", "score": 3 },
+            { "text": "I try to be mindful but don't have a formal strategy", "score": 2 },
+            { "text": "I sell investments when I need the money without considering tax impact", "score": 1 },
+            { "text": "I haven't thought about capital gains management", "score": 0 }
+          ]
+        },
+        {
+          "id": "q11",
+          "text": "Is your investment portfolio structured with tax efficiency in mind — for example, holding tax-inefficient assets (bonds, REITs) in tax-advantaged accounts?",
+          "options": [
+            { "text": "Yes, my portfolio uses asset location strategies", "score": 3 },
+            { "text": "I have some awareness but haven't optimized placement", "score": 2 },
+            { "text": "My investments are spread without much thought to tax efficiency", "score": 1 },
+            { "text": "I'm not sure what asset location means", "score": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Overall Tax Planning",
+      "questions": [
+        {
+          "id": "q12",
+          "text": "Do you work with a financial advisor or tax professional who creates a multi-year tax projection for your retirement?",
+          "options": [
+            { "text": "Yes, I have a comprehensive, forward-looking tax plan reviewed annually", "score": 3 },
+            { "text": "My advisor addresses taxes but we don't do multi-year projections", "score": 2 },
+            { "text": "I rely on my tax preparer at filing time but don't plan ahead", "score": 1 },
+            { "text": "I don't currently work with anyone on retirement tax planning", "score": 0 }
+          ]
+        }
+      ]
+    }
+  ],
+  "tiers": [
+    {
+      "label": "Low Tax Leak",
+      "min": 30,
+      "max": 36,
+      "color": "#16a34a",
+      "message": "Your tax strategy looks solid. A quick review could confirm you're not leaving anything on the table."
+    },
+    {
+      "label": "Moderate Tax Leak",
+      "min": 22,
+      "max": 29,
+      "color": "#ca8a04",
+      "message": "There may be tax-saving opportunities you're not taking advantage of. A conversation could uncover them."
+    },
+    {
+      "label": "High Tax Leak",
+      "min": 0,
+      "max": 21,
+      "color": "#dc2626",
+      "message": "You could be losing significant money to avoidable taxes. A professional review is strongly recommended."
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import { ScorecardConfig, AnswerMap } from "@/lib/types";
 interface SectionBreakdownProps {
   config: ScorecardConfig;
   answers: AnswerMap;
+  compact?: boolean;
 }
 
 function getSectionScore(
@@ -39,37 +40,36 @@ function getLabel(percentage: number): string {
   return "Needs Attention";
 }
 
-export default function SectionBreakdown({ config, answers }: SectionBreakdownProps) {
+export default function SectionBreakdown({ config, answers, compact = false }: SectionBreakdownProps) {
   return (
     <div style={{ width: "100%" }}>
       <h3
         style={{
-          fontSize: "12px",
+          fontSize: compact ? "11px" : "12px",
           fontWeight: 700,
           textTransform: "uppercase" as const,
           letterSpacing: "0.1em",
           color: "#8B95A5",
-          marginBottom: "24px",
+          marginBottom: compact ? "14px" : "24px",
         }}
       >
         Your Breakdown by Category
       </h3>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: compact ? "8px" : "20px" }}>
         {config.sections.map((section, i) => {
           const { earned, max } = getSectionScore(config, i, answers);
           const percentage = max > 0 ? earned / max : 0;
           const barColor = getBarColor(percentage);
           const label = getLabel(percentage);
-
           const isWeak = percentage < 0.5;
 
           return (
             <div
               key={i}
               style={{
-                padding: "12px 14px",
-                borderRadius: "8px",
+                padding: compact ? "8px 10px" : "12px 14px",
+                borderRadius: compact ? "6px" : "8px",
                 backgroundColor: isWeak ? "#FEF2F2" : "transparent",
                 borderLeft: `3px solid ${barColor}`,
                 transition: "background-color 0.3s ease",
@@ -81,12 +81,12 @@ export default function SectionBreakdown({ config, answers }: SectionBreakdownPr
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "baseline",
-                  marginBottom: "8px",
+                  marginBottom: compact ? "5px" : "8px",
                 }}
               >
                 <span
                   style={{
-                    fontSize: "15px",
+                    fontSize: compact ? "14px" : "15px",
                     fontWeight: 500,
                     color: "#1B2B3A",
                     lineHeight: 1.3,
@@ -98,11 +98,11 @@ export default function SectionBreakdown({ config, answers }: SectionBreakdownPr
                 </span>
                 <span
                   style={{
-                    fontSize: "13px",
+                    fontSize: compact ? "12px" : "13px",
                     fontWeight: 600,
                     color: barColor,
                     whiteSpace: "nowrap",
-                    padding: "2px 8px",
+                    padding: compact ? "1px 6px" : "2px 8px",
                     borderRadius: "4px",
                     backgroundColor: `${barColor}10`,
                   }}
@@ -115,7 +115,7 @@ export default function SectionBreakdown({ config, answers }: SectionBreakdownPr
               <div
                 style={{
                   width: "100%",
-                  height: "6px",
+                  height: compact ? "4px" : "6px",
                   backgroundColor: "#ECEEF2",
                   borderRadius: "3px",
                   overflow: "hidden",

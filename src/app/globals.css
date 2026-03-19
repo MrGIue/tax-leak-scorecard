@@ -40,6 +40,25 @@
   }
 }
 
+/* Disable transitions for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* Touch feedback for interactive elements */
+@media (hover: none) {
+  button:active,
+  a:active {
+    transform: scale(0.98) !important;
+    opacity: 0.92 !important;
+  }
+}
+
 /* Serif heading font */
 .font-display {
   font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;

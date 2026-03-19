@@ -128,7 +128,7 @@ export default function ScoreRing({
         <span
           style={{
             fontSize: size * 0.075,
-            color: lightText ? "rgba(255,255,255,0.6)" : "#A0A7B3",
+            color: lightText ? "rgba(255,255,255,0.75)" : "#A0A7B3",
             fontWeight: 500,
             marginTop: 6,
             letterSpacing: "0.04em",

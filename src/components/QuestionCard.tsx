@@ -89,7 +89,10 @@ export default function QuestionCard({
                 }
               }}
               onMouseLeave={(e) => {
-                if (!isSelected) {
+                if (isSelected) {
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = primaryColor;
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = `rgba(${primaryRgb}, 0.04)`;
+                } else {
                   (e.currentTarget as HTMLButtonElement).style.borderColor = "#E3E6EB";
                   (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#FAFBFC";
                 }

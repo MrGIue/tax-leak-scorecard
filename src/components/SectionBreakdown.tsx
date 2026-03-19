@@ -44,18 +44,18 @@ export default function SectionBreakdown({ config, answers }: SectionBreakdownPr
     <div style={{ width: "100%" }}>
       <h3
         style={{
-          fontSize: "13px",
-          fontWeight: 600,
+          fontSize: "12px",
+          fontWeight: 700,
           textTransform: "uppercase" as const,
-          letterSpacing: "0.08em",
-          color: "#9CA3AF",
-          marginBottom: "20px",
+          letterSpacing: "0.1em",
+          color: "#8B95A5",
+          marginBottom: "24px",
         }}
       >
         Your Breakdown by Category
       </h3>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
         {config.sections.map((section, i) => {
           const { earned, max } = getSectionScore(config, i, answers);
           const percentage = max > 0 ? earned / max : 0;
@@ -70,14 +70,14 @@ export default function SectionBreakdown({ config, answers }: SectionBreakdownPr
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "baseline",
-                  marginBottom: "7px",
+                  marginBottom: "8px",
                 }}
               >
                 <span
                   style={{
                     fontSize: "15px",
                     fontWeight: 500,
-                    color: "#1E293B",
+                    color: "#1B2B3A",
                     lineHeight: 1.3,
                     flex: 1,
                     paddingRight: "12px",
@@ -91,28 +91,31 @@ export default function SectionBreakdown({ config, answers }: SectionBreakdownPr
                     fontWeight: 600,
                     color: barColor,
                     whiteSpace: "nowrap",
+                    padding: "2px 8px",
+                    borderRadius: "4px",
+                    backgroundColor: `${barColor}10`,
                   }}
                 >
                   {label} ({earned}/{max})
                 </span>
               </div>
 
-              {/* Bar */}
+              {/* Bar track */}
               <div
                 style={{
                   width: "100%",
-                  height: "8px",
-                  backgroundColor: "#F3F4F6",
-                  borderRadius: "4px",
+                  height: "6px",
+                  backgroundColor: "#ECEEF2",
+                  borderRadius: "3px",
                   overflow: "hidden",
                 }}
               >
                 <div
                   style={{
-                    width: `${Math.max(percentage * 100, 2)}%`,
+                    width: `${Math.max(percentage * 100, 3)}%`,
                     height: "100%",
                     backgroundColor: barColor,
-                    borderRadius: "4px",
+                    borderRadius: "3px",
                     transition: "width 0.8s ease-out",
                   }}
                 />

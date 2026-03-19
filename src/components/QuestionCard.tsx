@@ -7,6 +7,7 @@ interface QuestionCardProps {
   selectedIndex: number | undefined;
   onSelect: (index: number) => void;
   accentColor: string;
+  primaryColor?: string;
 }
 
 function hexToRgb(hex: string): string {
@@ -22,8 +23,9 @@ export default function QuestionCard({
   selectedIndex,
   onSelect,
   accentColor,
+  primaryColor = "#01305C",
 }: QuestionCardProps) {
-  const rgb = hexToRgb(accentColor);
+  const primaryRgb = hexToRgb(primaryColor);
 
   return (
     <div style={{ width: "100%" }}>
@@ -31,11 +33,11 @@ export default function QuestionCard({
       <h2
         id={`question-heading-${question.id}`}
         style={{
-          fontSize: "20px",
-          fontWeight: 700,
-          color: "#111827",
-          lineHeight: "1.4",
-          marginBottom: "20px",
+          fontSize: "clamp(17px, 2.2vw, 19px)",
+          fontWeight: 600,
+          color: "#1B2B3A",
+          lineHeight: 1.5,
+          marginBottom: "16px",
         }}
       >
         {question.text}
@@ -46,7 +48,7 @@ export default function QuestionCard({
         role="radiogroup"
         aria-labelledby={`question-heading-${question.id}`}
         aria-label={question.text}
-        style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+        style={{ display: "flex", flexDirection: "column", gap: "10px" }}
       >
         {question.options.map((option, i) => {
           const isSelected = selectedIndex === i;
@@ -59,56 +61,57 @@ export default function QuestionCard({
               style={{
                 display: "flex",
                 alignItems: "center",
-                minHeight: "60px",
+                minHeight: "56px",
                 width: "100%",
                 padding: "14px 18px",
                 textAlign: "left",
                 cursor: "pointer",
                 borderRadius: "10px",
                 border: isSelected
-                  ? `2px solid ${accentColor}`
-                  : "2px solid #E5E7EB",
+                  ? `1.5px solid ${primaryColor}`
+                  : "1.5px solid #E3E6EB",
                 borderLeft: isSelected
-                  ? `5px solid ${accentColor}`
-                  : "5px solid transparent",
+                  ? `4px solid ${primaryColor}`
+                  : "4px solid transparent",
                 backgroundColor: isSelected
-                  ? `rgba(${rgb}, 0.06)`
-                  : "#FFFFFF",
+                  ? `rgba(${primaryRgb}, 0.04)`
+                  : "#FAFBFC",
                 boxShadow: isSelected
-                  ? `0 0 0 1px rgba(${rgb}, 0.15)`
-                  : "0 1px 3px rgba(0,0,0,0.06)",
-                transition: "all 0.15s ease",
+                  ? `0 0 0 1px rgba(${primaryRgb}, 0.08)`
+                  : "none",
+                transition: "all 0.18s ease",
                 outline: "none",
               }}
               onMouseEnter={(e) => {
                 if (!isSelected) {
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = `rgba(${rgb}, 0.4)`;
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = `rgba(${rgb}, 0.02)`;
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "#C5CAD3";
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#F5F6F8";
                 }
               }}
               onMouseLeave={(e) => {
                 if (!isSelected) {
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = "#E5E7EB";
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#FFFFFF";
+                  (e.currentTarget as HTMLButtonElement).style.borderColor = "#E3E6EB";
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#FAFBFC";
                 }
               }}
             >
-              {/* Option letter indicator */}
+              {/* Letter indicator */}
               <span
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  width: "28px",
-                  height: "28px",
-                  minWidth: "28px",
-                  borderRadius: "50%",
+                  width: "30px",
+                  height: "30px",
+                  minWidth: "30px",
+                  borderRadius: "8px",
                   fontSize: "13px",
-                  fontWeight: 600,
+                  fontWeight: 700,
                   marginRight: "14px",
-                  backgroundColor: isSelected ? accentColor : "#F3F4F6",
-                  color: isSelected ? "#FFFFFF" : "#6B7280",
-                  transition: "all 0.15s ease",
+                  backgroundColor: isSelected ? primaryColor : "#E8ECF0",
+                  color: isSelected ? "#FFFFFF" : "#6B7580",
+                  transition: "all 0.18s ease",
+                  letterSpacing: "0.02em",
                 }}
               >
                 {String.fromCharCode(65 + i)}
@@ -117,15 +120,30 @@ export default function QuestionCard({
               {/* Option text */}
               <span
                 style={{
-                  fontSize: "16px",
-                  lineHeight: "1.45",
+                  fontSize: "15px",
+                  lineHeight: 1.5,
                   fontWeight: isSelected ? 600 : 400,
-                  color: isSelected ? "#111827" : "#374151",
-                  transition: "all 0.15s ease",
+                  color: isSelected ? "#1B2B3A" : "#3D4A5C",
+                  transition: "all 0.18s ease",
                 }}
               >
                 {option.text}
               </span>
+
+              {/* Checkmark for selected */}
+              {isSelected && (
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  aria-hidden="true"
+                  style={{ marginLeft: "auto", minWidth: "20px" }}
+                >
+                  <circle cx="10" cy="10" r="10" fill={accentColor} />
+                  <path d="M6 10.5L8.5 13L14 7.5" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
             </button>
           );
         })}

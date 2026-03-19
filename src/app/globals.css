@@ -12,3 +12,35 @@
 *:focus:not(:focus-visible) {
   outline: none;
 }
+
+/* Entrance animation */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.35s ease-out both;
+  }
+}
+
+/* Serif heading font */
+.font-display {
+  font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;
+}

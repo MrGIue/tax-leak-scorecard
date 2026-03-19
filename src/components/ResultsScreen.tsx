@@ -28,57 +28,57 @@ export default function ResultsScreen({
   answers,
 }: ResultsScreenProps) {
   const { branding, bookingUrl, bookingCtaText, clientName } = config;
-  const tierRgb = hexToRgb(tier.color);
   const percentage = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
 
   return (
-    <div
-      style={{
-        maxWidth: "640px",
-        margin: "0 auto",
-        padding: "16px 0 24px",
-      }}
-    >
-      {/* ── Hero: Score Ring + Tier ── */}
+    <div style={{ width: "100%" }}>
+      {/* Navy hero section */}
       <div
         style={{
+          background: `linear-gradient(145deg, ${branding.primaryColor} 0%, ${branding.primaryColor}E0 100%)`,
+          padding: "clamp(36px, 5vw, 56px) clamp(24px, 4vw, 48px)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           textAlign: "center",
-          padding: "32px 24px 40px",
         }}
       >
-        {/* Heading */}
+        {/* Label */}
         <h2
           style={{
-            fontSize: "14px",
+            fontSize: "12px",
             fontWeight: 600,
             textTransform: "uppercase" as const,
-            letterSpacing: "0.1em",
-            color: "#9CA3AF",
+            letterSpacing: "0.14em",
+            color: "rgba(255,255,255,0.55)",
             marginBottom: "28px",
           }}
         >
           Your Tax Leak Score
         </h2>
 
-        {/* Score Ring */}
-        <ScoreRing score={score} maxScore={maxScore} color={tier.color} size={200} />
+        {/* Score Ring — larger, on navy */}
+        <ScoreRing
+          score={score}
+          maxScore={maxScore}
+          color={tier.color}
+          size={220}
+          lightText={true}
+        />
 
         {/* Tier Badge */}
         <div
           style={{
             marginTop: "28px",
-            padding: "10px 32px",
+            padding: "8px 28px",
             borderRadius: "999px",
-            backgroundColor: `rgba(${tierRgb}, 0.12)`,
-            border: `1.5px solid rgba(${tierRgb}, 0.25)`,
+            backgroundColor: `rgba(${hexToRgb(tier.color)}, 0.2)`,
+            border: `1.5px solid rgba(${hexToRgb(tier.color)}, 0.4)`,
           }}
         >
           <span
             style={{
-              fontSize: "18px",
+              fontSize: "16px",
               fontWeight: 700,
               color: tier.color,
               letterSpacing: "0.02em",
@@ -92,79 +92,64 @@ export default function ResultsScreen({
         <p
           style={{
             marginTop: "20px",
-            fontSize: "17px",
+            fontSize: "16px",
             lineHeight: 1.65,
-            color: "#374151",
-            maxWidth: "480px",
+            color: "rgba(255,255,255,0.78)",
+            maxWidth: "460px",
           }}
         >
           {tier.message}
         </p>
       </div>
 
-      {/* ── Separator ── */}
-      <div
-        style={{
-          height: "1px",
-          backgroundColor: "#E5E7EB",
-          margin: "0 24px",
-        }}
-      />
-
-      {/* ── Section Breakdown ── */}
-      <div style={{ padding: "36px 24px" }}>
+      {/* Section Breakdown */}
+      <div style={{ padding: "clamp(32px, 4vw, 44px) clamp(24px, 4vw, 48px)" }}>
         <SectionBreakdown config={config} answers={answers} />
       </div>
 
-      {/* ── Separator ── */}
-      <div
-        style={{
-          height: "1px",
-          backgroundColor: "#E5E7EB",
-          margin: "0 24px",
-        }}
-      />
+      {/* Separator */}
+      <div style={{ height: "1px", backgroundColor: "#ECEEF2", margin: "0 clamp(24px, 4vw, 48px)" }} />
 
-      {/* ── CTA Section ── */}
+      {/* CTA Section */}
       <div
         style={{
-          padding: "40px 24px 32px",
+          padding: "clamp(32px, 4vw, 44px) clamp(24px, 4vw, 48px) clamp(36px, 5vw, 52px)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           textAlign: "center",
         }}
       >
-        {/* Context-aware CTA headline */}
         <h3
+          className="font-display"
           style={{
-            fontSize: "22px",
+            fontSize: "clamp(22px, 3vw, 28px)",
             fontWeight: 700,
-            color: "#111827",
+            color: "#1B2B3A",
             marginBottom: "10px",
-            lineHeight: 1.3,
+            lineHeight: 1.25,
           }}
         >
           {percentage < 60
-            ? "Don't Leave Money on the Table"
+            ? "Don\u2019t Leave Money on the Table"
             : percentage < 83
-            ? "There's Room to Optimize"
+            ? "There\u2019s Room to Optimize"
             : "Confirm Your Strategy Is Airtight"}
         </h3>
 
         <p
           style={{
             fontSize: "15px",
-            lineHeight: 1.6,
-            color: "#6B7280",
-            maxWidth: "440px",
-            marginBottom: "28px",
+            lineHeight: 1.65,
+            color: "#6B7580",
+            maxWidth: "460px",
+            marginBottom: "32px",
           }}
         >
           {percentage < 60
-            ? "Your score suggests meaningful tax savings are available. A complimentary review with our team can identify exactly where — and how much — you could keep."
+            ? "Your score suggests meaningful tax savings are available. A complimentary review with our team can identify exactly where \u2014 and how much \u2014 you could keep."
             : percentage < 83
-            ? "You're doing several things right, but a few gaps could be costing you. A quick conversation can pinpoint the opportunities."
+            ? "You\u2019re doing several things right, but a few gaps could be costing you. A quick conversation can pinpoint the opportunities."
             : "Your tax strategy is strong. A brief check-in can confirm nothing is being overlooked as rules and markets change."}
         </p>
 
@@ -177,40 +162,42 @@ export default function ResultsScreen({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            gap: "10px",
             width: "100%",
-            maxWidth: "420px",
-            minHeight: "58px",
-            padding: "16px 40px",
+            maxWidth: "440px",
+            minHeight: "60px",
+            padding: "18px 40px",
             fontSize: "18px",
             fontWeight: 700,
             color: "#FFFFFF",
             backgroundColor: branding.primaryColor,
             textDecoration: "none",
             borderRadius: "10px",
-            boxShadow: `0 4px 20px rgba(${hexToRgb(branding.primaryColor)}, 0.3)`,
-            transition: "opacity 0.15s ease, transform 0.15s ease",
-            lineHeight: 1.3,
-            boxSizing: "border-box" as const,
+            boxShadow: `0 4px 20px rgba(${hexToRgb(branding.primaryColor)}, 0.25)`,
+            transition: "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease",
             cursor: "pointer",
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.opacity = "0.9";
-            (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-1px)";
+            (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
+            (e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 6px 28px rgba(${hexToRgb(branding.primaryColor)}, 0.32)`;
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.opacity = "1";
             (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
+            (e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 4px 20px rgba(${hexToRgb(branding.primaryColor)}, 0.25)`;
           }}
         >
           {bookingCtaText}
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M4.5 10H15.5M15.5 10L10.5 5M15.5 10L10.5 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
         </a>
 
         {/* Confirmation note */}
         <p
           style={{
-            marginTop: "18px",
+            marginTop: "20px",
             fontSize: "13px",
-            color: "#9CA3AF",
+            color: "#A0A7B3",
             lineHeight: 1.5,
           }}
         >

@@ -92,6 +92,10 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
     score !== null ? getTier(config, score) : null;
 
   const primaryColor = config.branding.primaryColor;
+  const accentColor = config.branding.accentColor;
+
+  const isWelcome = step.type === "welcome";
+  const isResults = step.type === "results";
 
   return (
     <div
@@ -100,114 +104,107 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
-        padding: "40px 16px",
-        background: `linear-gradient(145deg, ${primaryColor}08 0%, #f0f2f5 35%, #f8f9fb 60%, ${primaryColor}05 100%)`,
-        position: "relative",
-        overflow: "hidden",
+        justifyContent: "flex-start",
+        paddingTop: isWelcome ? "clamp(48px, 8vh, 100px)" : "clamp(32px, 5vh, 60px)",
+        paddingBottom: "48px",
+        paddingLeft: "16px",
+        paddingRight: "16px",
+        background: "#F5F6F8",
       }}
     >
-      {/* Subtle background decoration */}
-      <div
-        style={{
-          position: "absolute",
-          top: "-120px",
-          right: "-120px",
-          width: "400px",
-          height: "400px",
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${primaryColor}06, transparent 70%)`,
-          pointerEvents: "none",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          bottom: "-80px",
-          left: "-80px",
-          width: "300px",
-          height: "300px",
-          borderRadius: "50%",
-          background: `radial-gradient(circle, ${config.branding.accentColor}08, transparent 70%)`,
-          pointerEvents: "none",
-        }}
-      />
-
-      {/* Title + subtitle lockup */}
-      <div style={{ textAlign: "center", marginBottom: "28px", position: "relative" }}>
-        <p
+      {/* Title lockup — shown on welcome and quiz steps, hidden on results */}
+      {!isResults && (
+        <div
+          className="animate-fade-in"
           style={{
-            fontSize: "13px",
-            fontWeight: 600,
-            textTransform: "uppercase" as const,
-            letterSpacing: "0.12em",
-            color: config.branding.accentColor,
-            marginBottom: "8px",
+            textAlign: "center",
+            marginBottom: isWelcome ? "0" : "24px",
+            display: isWelcome ? "none" : "block",
           }}
         >
-          {config.clientName}
-        </p>
-        <h1
-          style={{
-            fontSize: "clamp(28px, 4.5vw, 38px)",
-            fontWeight: 700,
-            color: primaryColor,
-            letterSpacing: "-0.5px",
-            lineHeight: 1.15,
-          }}
-        >
-          {config.scorecardTitle}
-        </h1>
-      </div>
+          <p
+            style={{
+              fontSize: "12px",
+              fontWeight: 600,
+              textTransform: "uppercase" as const,
+              letterSpacing: "0.14em",
+              color: accentColor,
+              marginBottom: "6px",
+            }}
+          >
+            {config.clientName}
+          </p>
+          <h1
+            className="font-display"
+            style={{
+              fontSize: "clamp(24px, 3.5vw, 30px)",
+              fontWeight: 700,
+              color: primaryColor,
+              lineHeight: 1.2,
+            }}
+          >
+            {config.scorecardTitle}
+          </h1>
+        </div>
+      )}
 
-      {/* Progress bar */}
+      {/* Progress bar — during quiz steps */}
       {currentProgressStep !== null && (
-        <div style={{ width: "100%", maxWidth: "720px", marginBottom: "24px", position: "relative" }}>
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "840px",
+            marginBottom: "20px",
+          }}
+        >
           <ProgressBar
             currentStep={currentProgressStep}
             labels={progressLabels}
-            accentColor={config.branding.accentColor}
+            accentColor={accentColor}
+            primaryColor={primaryColor}
           />
         </div>
       )}
 
-      {/* Main card */}
+      {/* Main content card */}
       <div
         key={JSON.stringify(step)}
+        className="animate-fade-in-up"
         style={{
           width: "100%",
-          maxWidth: "720px",
+          maxWidth: "840px",
           backgroundColor: "#FFFFFF",
-          borderRadius: "16px",
-          padding: "24px",
-          minHeight: "400px",
-          boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.06)",
-          borderTop: `3px solid ${primaryColor}`,
-          position: "relative",
+          borderRadius: isResults ? "16px" : "14px",
+          overflow: "hidden",
+          boxShadow: "0 1px 2px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06)",
         }}
-        className="md:p-10"
       >
         {step.type === "welcome" && (
           <WelcomeScreen config={config} onStart={handleStart} />
         )}
 
         {step.type === "contact" && (
-          <ContactForm
-            onSubmit={handleContactSubmit}
-            accentColor={config.branding.accentColor}
-          />
+          <div style={{ padding: "clamp(28px, 4vw, 48px) clamp(24px, 4vw, 56px)" }}>
+            <ContactForm
+              onSubmit={handleContactSubmit}
+              accentColor={accentColor}
+            />
+          </div>
         )}
 
         {step.type === "section" && (
-          <QuestionSection
-            section={config.sections[step.index]}
-            answers={answers}
-            onAnswer={handleAnswer}
-            onNext={handleNext}
-            onBack={handleBack}
-            accentColor={config.branding.accentColor}
-            isLastSection={step.index === config.sections.length - 1}
-          />
+          <div style={{ padding: "clamp(28px, 4vw, 48px) clamp(24px, 4vw, 56px)" }}>
+            <QuestionSection
+              section={config.sections[step.index]}
+              answers={answers}
+              onAnswer={handleAnswer}
+              onNext={handleNext}
+              onBack={handleBack}
+              accentColor={accentColor}
+              primaryColor={primaryColor}
+              isLastSection={step.index === config.sections.length - 1}
+            />
+          </div>
         )}
 
         {step.type === "results" && score !== null && tier !== null && (
@@ -221,14 +218,14 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
         )}
       </div>
 
-      {/* Footer note */}
+      {/* Footer */}
       <p
         style={{
-          marginTop: "20px",
+          marginTop: "24px",
           fontSize: "12px",
-          color: "#B0B5BE",
+          color: "#A0A7B3",
           textAlign: "center",
-          position: "relative",
+          letterSpacing: "0.02em",
         }}
       >
         Powered by {config.clientName}

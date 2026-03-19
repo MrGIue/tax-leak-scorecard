@@ -7,16 +7,23 @@ interface ScoreRingProps {
   maxScore: number;
   color: string;
   size?: number;
+  lightText?: boolean;
 }
 
-export default function ScoreRing({ score, maxScore, color, size = 200 }: ScoreRingProps) {
+export default function ScoreRing({
+  score,
+  maxScore,
+  color,
+  size = 220,
+  lightText = false,
+}: ScoreRingProps) {
   const [progress, setProgress] = useState(0);
   const [displayedScore, setDisplayedScore] = useState(0);
   const rafRef = useRef<number | null>(null);
   const startTimeRef = useRef<number | null>(null);
   const duration = 1800;
 
-  const strokeWidth = 12;
+  const strokeWidth = 10;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const targetProgress = maxScore > 0 ? score / maxScore : 0;
@@ -75,7 +82,7 @@ export default function ScoreRing({ score, maxScore, color, size = 200 }: ScoreR
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#F3F4F6"
+          stroke={lightText ? "rgba(255,255,255,0.15)" : "#ECEEF2"}
           strokeWidth={strokeWidth}
         />
         {/* Progress arc */}
@@ -107,10 +114,11 @@ export default function ScoreRing({ score, maxScore, color, size = 200 }: ScoreR
         }}
       >
         <span
+          className="font-display"
           style={{
-            fontSize: size * 0.28,
+            fontSize: size * 0.3,
             fontWeight: 700,
-            color: color,
+            color: lightText ? "#FFFFFF" : color,
             lineHeight: 1,
             fontVariantNumeric: "tabular-nums",
           }}
@@ -119,10 +127,11 @@ export default function ScoreRing({ score, maxScore, color, size = 200 }: ScoreR
         </span>
         <span
           style={{
-            fontSize: size * 0.09,
-            color: "#9CA3AF",
+            fontSize: size * 0.075,
+            color: lightText ? "rgba(255,255,255,0.6)" : "#A0A7B3",
             fontWeight: 500,
-            marginTop: 4,
+            marginTop: 6,
+            letterSpacing: "0.04em",
           }}
         >
           out of {maxScore}

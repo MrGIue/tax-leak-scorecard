@@ -10,7 +10,13 @@ export default function ProgressBar({ currentStep, labels, accentColor }: Progre
   const totalSteps = labels.length;
 
   return (
-    <div style={{ width: "100%" }}>
+    <div
+      role="progressbar"
+      aria-valuenow={currentStep + 1}
+      aria-valuemax={totalSteps}
+      aria-label="Quiz progress"
+      style={{ width: "100%" }}
+    >
       {/* Segments */}
       <div style={{ display: "flex", gap: "4px", width: "100%" }}>
         {labels.map((_, i) => {
@@ -48,6 +54,7 @@ export default function ProgressBar({ currentStep, labels, accentColor }: Progre
               }}
             >
               <span
+                aria-hidden="true"
                 style={{
                   display: "block",
                   fontSize: "11px",

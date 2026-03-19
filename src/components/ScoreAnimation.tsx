@@ -19,6 +19,12 @@ export default function ScoreAnimation({ score, maxScore, color }: ScoreAnimatio
     startTimeRef.current = null;
     setDisplayed(0);
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      setDisplayed(score);
+      return;
+    }
+
     function tick(timestamp: number) {
       if (startTimeRef.current === null) {
         startTimeRef.current = timestamp;

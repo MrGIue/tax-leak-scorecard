@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
+
+const ibmPlexSans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-ibm-plex-sans",
+});
 
 export const metadata: Metadata = {
   title: "Scorecard",
@@ -13,7 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen" style={{ backgroundColor: "#f9fafb" }}>
+      <body
+        className={`min-h-screen ${ibmPlexSans.className}`}
+        style={{ backgroundColor: "#f9fafb" }}
+      >
         {children}
       </body>
     </html>

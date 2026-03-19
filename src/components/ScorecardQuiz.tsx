@@ -103,7 +103,7 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
         </div>
       )}
 
-      <div className="w-full max-w-[720px] mx-auto p-6 md:p-10 bg-white rounded-2xl shadow-sm min-h-[400px]">
+      <div key={JSON.stringify(step)} className="w-full max-w-[720px] mx-auto p-6 md:p-10 bg-white rounded-2xl shadow-sm min-h-[400px]">
         {step.type === "welcome" && (
           <WelcomeScreen config={config} onStart={handleStart} />
         )}

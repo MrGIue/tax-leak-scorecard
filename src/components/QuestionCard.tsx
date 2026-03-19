@@ -29,6 +29,7 @@ export default function QuestionCard({
     <div style={{ width: "100%" }}>
       {/* Question text */}
       <h2
+        id={`question-heading-${question.id}`}
         style={{
           fontSize: "20px",
           fontWeight: 700,
@@ -41,12 +42,19 @@ export default function QuestionCard({
       </h2>
 
       {/* Answer options */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+      <div
+        role="radiogroup"
+        aria-labelledby={`question-heading-${question.id}`}
+        aria-label={question.text}
+        style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+      >
         {question.options.map((option, i) => {
           const isSelected = selectedIndex === i;
           return (
             <button
               key={i}
+              role="radio"
+              aria-checked={isSelected}
               onClick={() => onSelect(i)}
               style={{
                 display: "flex",

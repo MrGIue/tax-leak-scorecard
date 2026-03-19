@@ -98,7 +98,7 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
           letterSpacing: "-0.3px",
         }}
       >
-        Before we show your results
+        Let's Get Started
       </h2>
       <p
         style={{
@@ -108,7 +108,7 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
           lineHeight: "1.55",
         }}
       >
-        Enter your name and email so we can send you a personalized breakdown.
+        Enter your information below so we can send your results.
       </p>
 
       <form onSubmit={handleSubmit} noValidate>
@@ -139,7 +139,7 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
               }}
             />
             {touched.firstName && errors.firstName && (
-              <p style={errorMsgStyle}>{errors.firstName}</p>
+              <p style={errorMsgStyle} aria-live="polite" role="alert">{errors.firstName}</p>
             )}
           </div>
 
@@ -169,7 +169,7 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
               }}
             />
             {touched.lastName && errors.lastName && (
-              <p style={errorMsgStyle}>{errors.lastName}</p>
+              <p style={errorMsgStyle} aria-live="polite" role="alert">{errors.lastName}</p>
             )}
           </div>
 
@@ -199,7 +199,7 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
               }}
             />
             {touched.email && errors.email && (
-              <p style={errorMsgStyle}>{errors.email}</p>
+              <p style={errorMsgStyle} aria-live="polite" role="alert">{errors.email}</p>
             )}
           </div>
 

@@ -62,8 +62,19 @@ export default function SectionBreakdown({ config, answers }: SectionBreakdownPr
           const barColor = getBarColor(percentage);
           const label = getLabel(percentage);
 
+          const isWeak = percentage < 0.5;
+
           return (
-            <div key={i}>
+            <div
+              key={i}
+              style={{
+                padding: "12px 14px",
+                borderRadius: "8px",
+                backgroundColor: isWeak ? "#FEF2F2" : "transparent",
+                borderLeft: `3px solid ${barColor}`,
+                transition: "background-color 0.3s ease",
+              }}
+            >
               {/* Section name + score */}
               <div
                 style={{

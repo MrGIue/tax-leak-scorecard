@@ -94,7 +94,7 @@ export default function ResultsScreen({
             marginTop: "20px",
             fontSize: "16px",
             lineHeight: 1.65,
-            color: "rgba(255,255,255,0.78)",
+            color: "rgba(255,255,255,0.88)",
             maxWidth: "460px",
           }}
         >
@@ -118,6 +118,8 @@ export default function ResultsScreen({
           flexDirection: "column",
           alignItems: "center",
           textAlign: "center",
+          backgroundColor: "#FAFBFC",
+          borderRadius: "0 0 16px 16px",
         }}
       >
         <h3

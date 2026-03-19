@@ -54,8 +54,8 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
     padding: "14px 16px",
     fontSize: "16px",
     color: "#1B2B3A",
-    backgroundColor: "#F8F9FB",
-    border: "1.5px solid #DDE1E8",
+    backgroundColor: "#F4F5F8",
+    border: "1.5px solid #CDD2DA",
     borderRadius: "8px",
     outline: "none",
     boxSizing: "border-box",
@@ -94,8 +94,8 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
 
   function handleFieldBlur(e: React.FocusEvent<HTMLInputElement>, field: string) {
     if (!(touched[field] && errors[field as keyof FieldErrors])) {
-      e.currentTarget.style.borderColor = "#DDE1E8";
-      e.currentTarget.style.backgroundColor = "#F8F9FB";
+      e.currentTarget.style.borderColor = "#CDD2DA";
+      e.currentTarget.style.backgroundColor = "#F4F5F8";
       e.currentTarget.style.boxShadow = "none";
     }
   }

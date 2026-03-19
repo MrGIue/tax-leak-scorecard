@@ -91,23 +91,78 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
   const tier =
     score !== null ? getTier(config, score) : null;
 
-  return (
-    <div className="min-h-screen bg-[#f9fafb] flex flex-col items-center justify-center px-4 py-10">
-      <h1
-        style={{
-          fontSize: "clamp(26px, 4vw, 34px)",
-          fontWeight: 700,
-          color: config.branding.primaryColor,
-          letterSpacing: "-0.5px",
-          marginBottom: "24px",
-          textAlign: "center",
-        }}
-      >
-        {config.scorecardTitle}
-      </h1>
+  const primaryColor = config.branding.primaryColor;
 
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "40px 16px",
+        background: `linear-gradient(145deg, ${primaryColor}08 0%, #f0f2f5 35%, #f8f9fb 60%, ${primaryColor}05 100%)`,
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Subtle background decoration */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-120px",
+          right: "-120px",
+          width: "400px",
+          height: "400px",
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${primaryColor}06, transparent 70%)`,
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "-80px",
+          left: "-80px",
+          width: "300px",
+          height: "300px",
+          borderRadius: "50%",
+          background: `radial-gradient(circle, ${config.branding.accentColor}08, transparent 70%)`,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Title + subtitle lockup */}
+      <div style={{ textAlign: "center", marginBottom: "28px", position: "relative" }}>
+        <p
+          style={{
+            fontSize: "13px",
+            fontWeight: 600,
+            textTransform: "uppercase" as const,
+            letterSpacing: "0.12em",
+            color: config.branding.accentColor,
+            marginBottom: "8px",
+          }}
+        >
+          {config.clientName}
+        </p>
+        <h1
+          style={{
+            fontSize: "clamp(28px, 4.5vw, 38px)",
+            fontWeight: 700,
+            color: primaryColor,
+            letterSpacing: "-0.5px",
+            lineHeight: 1.15,
+          }}
+        >
+          {config.scorecardTitle}
+        </h1>
+      </div>
+
+      {/* Progress bar */}
       {currentProgressStep !== null && (
-        <div className="w-full max-w-[720px] mb-6">
+        <div style={{ width: "100%", maxWidth: "720px", marginBottom: "24px", position: "relative" }}>
           <ProgressBar
             currentStep={currentProgressStep}
             labels={progressLabels}
@@ -116,7 +171,22 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
         </div>
       )}
 
-      <div key={JSON.stringify(step)} className="w-full max-w-[720px] mx-auto p-6 md:p-10 bg-white rounded-2xl shadow-sm min-h-[400px]">
+      {/* Main card */}
+      <div
+        key={JSON.stringify(step)}
+        style={{
+          width: "100%",
+          maxWidth: "720px",
+          backgroundColor: "#FFFFFF",
+          borderRadius: "16px",
+          padding: "24px",
+          minHeight: "400px",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.06)",
+          borderTop: `3px solid ${primaryColor}`,
+          position: "relative",
+        }}
+        className="md:p-10"
+      >
         {step.type === "welcome" && (
           <WelcomeScreen config={config} onStart={handleStart} />
         )}
@@ -150,6 +220,19 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
           />
         )}
       </div>
+
+      {/* Footer note */}
+      <p
+        style={{
+          marginTop: "20px",
+          fontSize: "12px",
+          color: "#B0B5BE",
+          textAlign: "center",
+          position: "relative",
+        }}
+      >
+        Powered by {config.clientName}
+      </p>
     </div>
   );
 }

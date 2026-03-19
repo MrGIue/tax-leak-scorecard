@@ -23,7 +23,9 @@ Welcome Screen → Contact Info → Section 1 → Section 2 → ... → Section 
 3. **Questions** — one section at a time, progress bar at top, answer options as selectable cards (not dropdowns)
 4. **Results screen** — animated score counter, tier badge with color, personalized message, CTA to book a call
 
-Navigation: back/next between sections. No skipping ahead. Can revise previous answers.
+Navigation: back/next between sections. No skipping ahead. Can revise previous answers. Answer state persists across back-navigation — previously selected answers are shown as selected when revisiting a section.
+
+Browser back button from results screen returns to the last quiz section (answers preserved). This is intentional.
 
 ## Scoring
 
@@ -37,7 +39,7 @@ Each question has 3-4 answer options, each worth 0-3 points. Total max score dep
 | Moderate Tax Leak | 22-29 | Yellow | Moderate | There may be tax-saving opportunities you're not taking advantage of. A conversation could uncover them. |
 | High Tax Leak | 0-21 | Red | High | You could be losing significant money to avoidable taxes. A professional review is strongly recommended. |
 
-Tiers are defined in the config file — different clients can have different tier ranges, colors, labels, and messages.
+Tiers are defined in the config file — different clients can have different tier ranges, colors, labels, and messages. Tier colors use hex values (e.g., `"color": "#16a34a"`) applied as inline styles, not Tailwind class names, to avoid build-time purge issues with dynamic classes.
 
 ## Architecture
 
@@ -102,7 +104,7 @@ Each client gets a JSON config file:
   },
   "bookingUrl": "https://calendly.com/placeholder",
   "bookingCtaText": "Schedule Your Free Tax Leak Review",
-  "webhookUrl": "https://hook.us2.make.com/xxx",
+  "webhookEnvKey": "WEBHOOK_URL_OAKS",
   "sections": [
     {
       "title": "Income Sources & Withdrawal Order",
@@ -121,9 +123,9 @@ Each client gets a JSON config file:
     }
   ],
   "tiers": [
-    { "label": "Low Tax Leak", "min": 30, "max": 36, "color": "green", "message": "Your tax strategy looks solid..." },
-    { "label": "Moderate Tax Leak", "min": 22, "max": 29, "color": "yellow", "message": "There may be tax-saving opportunities..." },
-    { "label": "High Tax Leak", "min": 0, "max": 21, "color": "red", "message": "You could be losing significant money..." }
+    { "label": "Low Tax Leak", "min": 30, "max": 36, "color": "#16a34a", "message": "Your tax strategy looks solid..." },
+    { "label": "Moderate Tax Leak", "min": 22, "max": 29, "color": "#ca8a04", "message": "There may be tax-saving opportunities..." },
+    { "label": "High Tax Leak", "min": 0, "max": 21, "color": "#dc2626", "message": "You could be losing significant money..." }
   ]
 }
 ```
@@ -132,12 +134,16 @@ Each client gets a JSON config file:
 
 - `/oaks` loads `configs/oaks.json`
 - `/other-client` loads `configs/other-client.json`
-- Root `/` can redirect to a default or show a 404
-- Config is loaded server-side at build time (static generation) for performance
+- Root `/` shows a 404 (no default client)
+- Config is loaded server-side at build time via `generateStaticParams`. Adding a new client requires a Vercel redeploy to activate their route.
+
+### Webhook Security
+
+The `webhookUrl` is NOT stored in the config JSON (which is committed to a public GitHub repo). Instead, each config specifies a `webhookEnvKey` (e.g., `"WEBHOOK_URL_OAKS"`), and the actual URL is stored as a Vercel environment variable. The webhook is fired via a Next.js server action that reads the URL from `process.env`.
 
 ### Webhook Payload
 
-POST to Make.com webhook on results screen load:
+POST to Make.com webhook via Next.js server action on form completion (NOT on results screen mount — prevents duplicate fires on refresh/back navigation). A `useRef` guard ensures the submission fires exactly once per quiz completion:
 
 ```json
 {
@@ -157,9 +163,54 @@ POST to Make.com webhook on results screen load:
 
 ### Error Handling
 
-- **Webhook failure:** Score is shown to the prospect regardless. Webhook fires client-side; if it fails, log to console. No user-facing error. We can add a retry queue or fallback later.
+- **Webhook failure:** Score is shown to the prospect regardless. Webhook fires server-side via server action; if it fails, log to server console. No user-facing error.
 - **Missing config:** 404 page for invalid client slugs.
 - **Incomplete form:** Contact form validates required fields before proceeding. Questions require an answer before advancing to next section.
+
+## TypeScript Interfaces
+
+```typescript
+interface ScorecardConfig {
+  clientSlug: string;
+  clientName: string;
+  scorecardTitle: string;
+  scorecardDescription: string;
+  branding: {
+    primaryColor: string;    // hex value, e.g., "#1B3A5C"
+    accentColor: string;     // hex value
+    logo?: string;           // path to logo in /public/logos/, optional — text header used if omitted
+  };
+  bookingUrl: string;
+  bookingCtaText: string;
+  webhookEnvKey: string;     // maps to a Vercel env var name
+  sections: Section[];
+  tiers: Tier[];
+}
+
+interface Section {
+  title: string;
+  questions: Question[];     // 1+ questions per section
+}
+
+interface Question {
+  id: string;                // globally unique across all sections (used in webhook payload)
+  text: string;
+  options: Option[];         // 2-4 options per question
+}
+
+interface Option {
+  text: string;
+  score: number;             // 0-3, scores may repeat within a question
+}
+
+interface Tier {
+  label: string;
+  min: number;
+  max: number;
+  color: string;             // hex value for badge/accent color
+  message: string;
+}
+```
 
 ## Design Direction
 
@@ -181,9 +232,10 @@ POST to Make.com webhook on results screen load:
 
 ## Adding a New Client
 
-1. Create a new JSON config file in `src/configs/`
-2. Add client logo to `public/logos/` (optional)
+1. Create a new JSON config file in `src/configs/{clientSlug}.json`
+2. Add client logo to `public/logos/` (optional — text header used if omitted)
 3. Set up a Make.com webhook for their notification flow
-4. Deploy — their scorecard is live at `/{clientSlug}`
+4. Add `WEBHOOK_URL_{CLIENTSLUG}` to Vercel environment variables
+5. Deploy to Vercel — triggers rebuild, new route goes live at `/{clientSlug}`
 
 Estimated time per new client: ~30 minutes.

@@ -91,7 +91,9 @@ export default function ResultsScreen({ config, score, maxScore, tier }: Results
         target="_blank"
         rel="noopener noreferrer"
         style={{
-          display: "block",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
           width: "100%",
           maxWidth: "400px",
           minHeight: "56px",
@@ -106,9 +108,6 @@ export default function ResultsScreen({ config, score, maxScore, tier }: Results
           transition: "opacity 0.15s ease, transform 0.15s ease",
           lineHeight: "1.3",
           boxSizing: "border-box",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
         } as React.CSSProperties}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLAnchorElement).style.opacity = "0.88";

@@ -24,20 +24,6 @@ export default function WelcomeScreen({ config, onStart }: WelcomeScreenProps) {
         margin: "0 auto",
       }}
     >
-      {/* Title */}
-      <h1
-        style={{
-          fontSize: "clamp(32px, 5vw, 40px)",
-          fontWeight: 800,
-          color: "#111827",
-          lineHeight: "1.2",
-          letterSpacing: "-0.5px",
-          marginBottom: "20px",
-        }}
-      >
-        {scorecardTitle}
-      </h1>
-
       {/* Description */}
       <p
         style={{

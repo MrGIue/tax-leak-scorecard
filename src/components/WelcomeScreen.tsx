@@ -24,32 +24,6 @@ export default function WelcomeScreen({ config, onStart }: WelcomeScreenProps) {
         margin: "0 auto",
       }}
     >
-      {/* Logo or client name */}
-      <div style={{ marginBottom: "40px" }}>
-        {branding.logo ? (
-          <img
-            src={branding.logo}
-            alt={clientName}
-            style={{
-              maxHeight: "80px",
-              maxWidth: "280px",
-              objectFit: "contain",
-            }}
-          />
-        ) : (
-          <span
-            style={{
-              fontSize: "22px",
-              fontWeight: 700,
-              color: branding.primaryColor,
-              letterSpacing: "-0.3px",
-            }}
-          >
-            {clientName}
-          </span>
-        )}
-      </div>
-
       {/* Title */}
       <h1
         style={{

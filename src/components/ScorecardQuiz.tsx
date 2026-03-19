@@ -92,7 +92,43 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
     score !== null ? getTier(config, score) : null;
 
   return (
-    <div className="min-h-screen bg-[#f9fafb] flex flex-col items-center justify-start py-10 px-4">
+    <div className="min-h-screen bg-[#f9fafb] flex flex-col items-center justify-start">
+      {/* Header */}
+      <header
+        style={{
+          width: "100%",
+          backgroundColor: config.branding.primaryColor,
+          padding: "16px 24px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          marginBottom: "0",
+        }}
+      >
+        {config.branding.logo ? (
+          <img
+            src={config.branding.logo}
+            alt={config.clientName}
+            style={{
+              height: "44px",
+              objectFit: "contain",
+            }}
+          />
+        ) : (
+          <span
+            style={{
+              fontSize: "18px",
+              fontWeight: 700,
+              color: "#FFFFFF",
+              letterSpacing: "0.02em",
+            }}
+          >
+            {config.clientName}
+          </span>
+        )}
+      </header>
+
+      <div className="flex flex-col items-center justify-start w-full px-4 py-10" style={{ flex: 1 }}>
       {currentProgressStep !== null && (
         <div className="w-full max-w-[720px] mb-6">
           <ProgressBar
@@ -136,6 +172,7 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
             answers={answers}
           />
         )}
+      </div>
       </div>
     </div>
   );

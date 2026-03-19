@@ -5,7 +5,8 @@
   "scorecardDescription": "Answer 12 quick questions to find out if you're losing money to avoidable taxes in retirement.",
   "branding": {
     "primaryColor": "#01305C",
-    "accentColor": "#769d4c"
+    "accentColor": "#769d4c",
+    "logo": "/logos/oaks.png"
   },
   "bookingUrl": "https://calendly.com/placeholder",
   "bookingCtaText": "Schedule Your Free Tax Leak Review",

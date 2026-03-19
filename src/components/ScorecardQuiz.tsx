@@ -93,6 +93,19 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
 
   return (
     <div className="min-h-screen bg-[#f9fafb] flex flex-col items-center justify-center px-4 py-10">
+      <h1
+        style={{
+          fontSize: "clamp(26px, 4vw, 34px)",
+          fontWeight: 700,
+          color: config.branding.primaryColor,
+          letterSpacing: "-0.5px",
+          marginBottom: "24px",
+          textAlign: "center",
+        }}
+      >
+        {config.scorecardTitle}
+      </h1>
+
       {currentProgressStep !== null && (
         <div className="w-full max-w-[720px] mb-6">
           <ProgressBar

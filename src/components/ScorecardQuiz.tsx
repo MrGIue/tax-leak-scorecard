@@ -133,6 +133,7 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
             score={score}
             maxScore={maxScore}
             tier={tier}
+            answers={answers}
           />
         )}
       </div>

@@ -194,10 +194,7 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
           <button
             type="submit"
             style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "8px",
+              display: "block",
               width: "100%",
               minHeight: "54px",
               padding: "15px 32px",
@@ -207,25 +204,11 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
               color: "#FFFFFF",
               backgroundColor: accentColor,
               border: "none",
-              borderRadius: "10px",
+              borderRadius: "8px",
               cursor: "pointer",
-              letterSpacing: "0.01em",
-              boxShadow: "0 4px 14px rgba(0,0,0,0.1)",
-              transition: "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-2px)";
-              (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 20px rgba(0,0,0,0.14)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)";
-              (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 14px rgba(0,0,0,0.1)";
             }}
           >
             Continue
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <path d="M4 9H14M14 9L9.5 4.5M14 9L9.5 13.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
           </button>
         </div>
       </form>

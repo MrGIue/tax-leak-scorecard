@@ -81,38 +81,21 @@ export default function WelcomeScreen({ config, onStart }: WelcomeScreenProps) {
         <button
           onClick={onStart}
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "10px",
+            display: "block",
             width: "100%",
             maxWidth: "380px",
-            minHeight: "60px",
-            padding: "18px 44px",
+            minHeight: "56px",
+            padding: "16px 40px",
             fontSize: "18px",
             fontWeight: 700,
             color: "#FFFFFF",
             backgroundColor: branding.accentColor,
             border: "none",
-            borderRadius: "10px",
+            borderRadius: "8px",
             cursor: "pointer",
-            letterSpacing: "0.01em",
-            boxShadow: `0 4px 16px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.08)`,
-            transition: "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-2px)";
-            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 24px rgba(0,0,0,0.15), 0 2px 6px rgba(0,0,0,0.1)";
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)";
-            (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 16px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.08)";
           }}
         >
           Get Started
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M4.5 10H15.5M15.5 10L10.5 5M15.5 10L10.5 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
         </button>
 
         {/* Time estimate badge */}

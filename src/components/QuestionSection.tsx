@@ -91,11 +91,9 @@ export default function QuestionSection({
           <button
             onClick={onBack}
             style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "6px",
+              display: "block",
               minHeight: "48px",
-              padding: "12px 22px",
+              padding: "12px 24px",
               fontSize: "15px",
               fontWeight: 600,
               color: "#6B7580",
@@ -103,22 +101,8 @@ export default function QuestionSection({
               border: "1.5px solid #DDE1E8",
               borderRadius: "8px",
               cursor: "pointer",
-              transition: "all 0.18s ease",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.color = "#3D4A5C";
-              (e.currentTarget as HTMLButtonElement).style.borderColor = "#B0B8C4";
-              (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#F5F6F8";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.color = "#6B7580";
-              (e.currentTarget as HTMLButtonElement).style.borderColor = "#DDE1E8";
-              (e.currentTarget as HTMLButtonElement).style.backgroundColor = "transparent";
             }}
           >
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-              <path d="M10 4L6 8L10 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
             Back
           </button>
         )}
@@ -127,9 +111,7 @@ export default function QuestionSection({
           onClick={onNext}
           disabled={!allAnswered}
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "8px",
+            display: "block",
             minHeight: "54px",
             padding: "15px 36px",
             fontSize: "17px",
@@ -137,28 +119,12 @@ export default function QuestionSection({
             color: "#FFFFFF",
             backgroundColor: allAnswered ? accentColor : "#C5CAD3",
             border: "none",
-            borderRadius: "10px",
+            borderRadius: "8px",
             cursor: allAnswered ? "pointer" : "not-allowed",
-            letterSpacing: "0.01em",
-            boxShadow: allAnswered ? "0 4px 14px rgba(0,0,0,0.1)" : "none",
-            transition: "all 0.2s cubic-bezier(0.16, 1, 0.3, 1)",
-            opacity: allAnswered ? 1 : 0.7,
-          }}
-          onMouseEnter={(e) => {
-            if (allAnswered) {
-              (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-2px)";
-              (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 6px 20px rgba(0,0,0,0.14)";
-            }
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLButtonElement).style.transform = "translateY(0)";
-            (e.currentTarget as HTMLButtonElement).style.boxShadow = allAnswered ? "0 4px 14px rgba(0,0,0,0.1)" : "none";
+            opacity: allAnswered ? 1 : 0.6,
           }}
         >
           {isLastSection ? "See My Results" : "Next"}
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <path d="M4 9H14M14 9L9.5 4.5M14 9L9.5 13.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
         </button>
       </div>
 

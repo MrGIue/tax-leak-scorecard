@@ -170,10 +170,7 @@ export default function ResultsScreen({
           target="_blank"
           rel="noopener noreferrer"
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "10px",
+            display: "block",
             width: "100%",
             maxWidth: "420px",
             minHeight: "54px",
@@ -183,24 +180,12 @@ export default function ResultsScreen({
             color: "#FFFFFF",
             backgroundColor: branding.primaryColor,
             textDecoration: "none",
-            borderRadius: "10px",
-            boxShadow: `0 4px 20px rgba(${hexToRgb(branding.primaryColor)}, 0.25)`,
-            transition: "transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease",
+            borderRadius: "8px",
+            textAlign: "center",
             cursor: "pointer",
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-2px)";
-            (e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 6px 28px rgba(${hexToRgb(branding.primaryColor)}, 0.32)`;
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
-            (e.currentTarget as HTMLAnchorElement).style.boxShadow = `0 4px 20px rgba(${hexToRgb(branding.primaryColor)}, 0.25)`;
           }}
         >
           {bookingCtaText}
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-            <path d="M4 9H14M14 9L9.5 4.5M14 9L9.5 13.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
         </a>
 
         {/* Confirmation note */}

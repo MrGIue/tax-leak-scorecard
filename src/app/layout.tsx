@@ -31,6 +31,22 @@ export default function RootLayout({
         style={{ backgroundColor: "#F5F6F8" }}
       >
         {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                if (window.self === window.top) return;
+                function postHeight() {
+                  var h = document.documentElement.scrollHeight;
+                  window.parent.postMessage({ type: 'scorecard-resize', height: h }, '*');
+                }
+                var ro = new ResizeObserver(postHeight);
+                ro.observe(document.body);
+                postHeight();
+              })();
+            `,
+          }}
+        />
       </body>
     </html>
   );

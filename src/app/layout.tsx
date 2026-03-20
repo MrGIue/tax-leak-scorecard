@@ -36,13 +36,18 @@ export default function RootLayout({
             __html: `
               (function() {
                 if (window.self === window.top) return;
+                var lastH = 0;
                 function postHeight() {
-                  var h = document.documentElement.scrollHeight;
-                  window.parent.postMessage({ type: 'scorecard-resize', height: h }, '*');
+                  var el = document.getElementById('scorecard-root');
+                  var h = el ? el.offsetHeight : document.body.scrollHeight;
+                  if (h !== lastH && h > 0) {
+                    lastH = h;
+                    window.parent.postMessage({ type: 'scorecard-resize', height: h }, '*');
+                  }
                 }
                 var ro = new ResizeObserver(postHeight);
                 ro.observe(document.body);
-                postHeight();
+                setInterval(postHeight, 500);
               })();
             `,
           }}

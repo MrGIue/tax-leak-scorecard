@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ScorecardConfig, QuizStep, AnswerMap, ContactInfo } from "@/lib/types";
 import { calculateScore, calculateMaxScore, getTier } from "@/lib/scoring";
 import { submitResults } from "@/lib/actions";
@@ -97,10 +97,16 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
   const isWelcome = step.type === "welcome";
   const isResults = step.type === "results";
 
+  const [inIframe, setInIframe] = useState(false);
+  useEffect(() => {
+    setInIframe(window.self !== window.top);
+  }, []);
+
   return (
     <div
+      id="scorecard-root"
       style={{
-        minHeight: "100vh",
+        minHeight: inIframe ? "auto" : "100vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

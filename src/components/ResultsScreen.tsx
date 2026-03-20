@@ -170,7 +170,9 @@ export default function ResultsScreen({
           target="_blank"
           rel="noopener noreferrer"
           style={{
-            display: "block",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             width: "100%",
             maxWidth: "420px",
             minHeight: "54px",
@@ -181,7 +183,6 @@ export default function ResultsScreen({
             backgroundColor: branding.primaryColor,
             textDecoration: "none",
             borderRadius: "8px",
-            textAlign: "center",
             cursor: "pointer",
           }}
         >

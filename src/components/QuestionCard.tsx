@@ -70,32 +70,10 @@ export default function QuestionCard({
                 border: isSelected
                   ? `1.5px solid ${primaryColor}`
                   : "1.5px solid #E3E6EB",
-                borderLeft: isSelected
-                  ? `4px solid ${primaryColor}`
-                  : "4px solid transparent",
                 backgroundColor: isSelected
                   ? `rgba(${primaryRgb}, 0.04)`
                   : "#FAFBFC",
-                boxShadow: isSelected
-                  ? `0 0 0 1px rgba(${primaryRgb}, 0.08)`
-                  : "none",
-                transition: "all 0.18s ease",
                 outline: "none",
-              }}
-              onMouseEnter={(e) => {
-                if (!isSelected) {
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = "#C5CAD3";
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#F5F6F8";
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (isSelected) {
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = primaryColor;
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = `rgba(${primaryRgb}, 0.04)`;
-                } else {
-                  (e.currentTarget as HTMLButtonElement).style.borderColor = "#E3E6EB";
-                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#FAFBFC";
-                }
               }}
             >
               {/* Letter indicator */}

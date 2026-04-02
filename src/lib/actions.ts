@@ -37,6 +37,7 @@ export async function submitResults(
     firstName: contact.firstName,
     lastName: contact.lastName,
     email: contact.email,
+    phone: contact.phone,
     totalScore,
     maxScore,
     tier: tier.label,

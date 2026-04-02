@@ -71,11 +71,29 @@ export default function WelcomeScreen({ config, onStart }: WelcomeScreenProps) {
             fontWeight: 400,
             color: "#3D4A5C",
             maxWidth: "520px",
-            marginBottom: "44px",
+            marginBottom: "24px",
           }}
         >
           {scorecardDescription}
         </p>
+
+        {/* Instructional note for non-retirees */}
+        <div
+          style={{
+            maxWidth: "520px",
+            padding: "14px 20px",
+            marginBottom: "36px",
+            borderRadius: "8px",
+            backgroundColor: `${branding.accentColor}12`,
+            borderLeft: `3px solid ${branding.accentColor}`,
+            textAlign: "left",
+          }}
+        >
+          <p style={{ fontSize: "14px", lineHeight: 1.5, color: "#3D4A5C", margin: 0 }}>
+            <strong style={{ color: branding.primaryColor }}>Not yet retired?</strong>{" "}
+            Answer as if you were taking distributions today.
+          </p>
+        </div>
 
         {/* CTA Button */}
         <button

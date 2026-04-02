@@ -27,12 +27,12 @@
         },
         {
           "id": "q2",
-          "text": "Are you aware of how different income sources (pensions, Social Security, IRA withdrawals, investment gains) interact to affect your total tax bill?",
+          "text": "Which accounts do you typically withdraw from first?",
           "options": [
-            { "text": "Yes, I actively manage the mix to minimize taxes", "score": 3 },
-            { "text": "I understand the basics but don't actively manage it", "score": 2 },
-            { "text": "I know some income is taxed differently but haven't looked into it deeply", "score": 1 },
-            { "text": "I haven't really thought about how they interact", "score": 0 }
+            { "text": "Tax-Deferred (IRA, 401k, 403b)", "score": 1 },
+            { "text": "Taxable (Brokerage, savings)", "score": 2 },
+            { "text": "Roth (Roth IRA, Roth 401k)", "score": 3 },
+            { "text": "Unsure — I haven't thought about withdrawal order", "score": 0 }
           ]
         },
         {

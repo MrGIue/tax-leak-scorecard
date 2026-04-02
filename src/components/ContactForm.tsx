@@ -12,12 +12,14 @@ interface FieldErrors {
   firstName?: string;
   lastName?: string;
   email?: string;
+  phone?: string;
 }
 
 export default function ContactForm({ onSubmit, accentColor }: ContactFormProps) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
@@ -29,6 +31,9 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
       errs.email = "Email address is required.";
     } else if (!email.includes("@") || !email.includes(".")) {
       errs.email = "Please enter a valid email address.";
+    }
+    if (!phone.trim()) {
+      errs.phone = "Phone number is required.";
     }
     return errs;
   }
@@ -43,9 +48,9 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
     e.preventDefault();
     const errs = validate();
     setErrors(errs);
-    setTouched({ firstName: true, lastName: true, email: true });
+    setTouched({ firstName: true, lastName: true, email: true, phone: true });
     if (Object.keys(errs).length > 0) return;
-    onSubmit({ firstName: firstName.trim(), lastName: lastName.trim(), email: email.trim() });
+    onSubmit({ firstName: firstName.trim(), lastName: lastName.trim(), email: email.trim(), phone: phone.trim() });
   }
 
   const baseInputStyle: React.CSSProperties = {
@@ -187,6 +192,27 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
             />
             {touched.email && errors.email && (
               <p style={errorMsgStyle} aria-live="polite" role="alert">{errors.email}</p>
+            )}
+          </div>
+
+          {/* Phone */}
+          <div>
+            <label htmlFor="phone" style={labelStyle}>
+              Phone Number
+            </label>
+            <input
+              id="phone"
+              type="tel"
+              autoComplete="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              onBlur={(e) => { handleBlur("phone"); handleFieldBlur(e, "phone"); }}
+              onFocus={(e) => handleFocus(e, "phone")}
+              placeholder="(555) 123-4567"
+              style={touched.phone && errors.phone ? errorInputStyle : baseInputStyle}
+            />
+            {touched.phone && errors.phone && (
+              <p style={errorMsgStyle} aria-live="polite" role="alert">{errors.phone}</p>
             )}
           </div>
 

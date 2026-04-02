@@ -20,6 +20,7 @@ export default function ScorecardQuiz({ config }: ScorecardQuizProps) {
     firstName: "",
     lastName: "",
     email: "",
+    phone: "",
   });
   const [answers, setAnswers] = useState<AnswerMap>({});
   const [score, setScore] = useState<number | null>(null);

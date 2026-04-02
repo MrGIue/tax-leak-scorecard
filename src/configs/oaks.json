@@ -8,7 +8,7 @@
     "accentColor": "#769d4c",
     "logo": "/logos/oaks.png"
   },
-  "bookingUrl": "https://calendly.com/placeholder",
+  "bookingUrl": "https://api.leadconnectorhq.com/widget/booking/U2a8r4zop2yHEnyAaLq4",
   "bookingCtaText": "Schedule Your Free Tax Leak Review",
   "webhookEnvKey": "WEBHOOK_URL_OAKS",
   "sections": [

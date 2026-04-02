@@ -32,6 +32,15 @@ export async function submitResults(
     })
   );
 
+  const answersFormatted = config.sections.map((section) => {
+    const questionLines = section.questions.map((q) => {
+      const selectedIndex = answers[q.id];
+      const selectedOption = selectedIndex !== undefined ? q.options[selectedIndex] : null;
+      return `Q: ${q.text}\nA: ${selectedOption?.text ?? "Not answered"} (${selectedOption?.score ?? 0}/3)`;
+    }).join("\n\n");
+    return `--- ${section.title} ---\n${questionLines}`;
+  }).join("\n\n");
+
   const payload = {
     clientSlug: config.clientSlug,
     firstName: contact.firstName,
@@ -41,7 +50,7 @@ export async function submitResults(
     totalScore,
     maxScore,
     tier: tier.label,
-    answers: answerDetails,
+    answers: answersFormatted,
     completedAt: new Date().toISOString(),
   };
 

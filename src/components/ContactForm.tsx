@@ -195,7 +195,7 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
           {/* Phone */}
           <div>
             <label htmlFor="phone" style={labelStyle}>
-              Phone Number <span style={{ fontWeight: 400, color: "#A0A7B3" }}>(optional)</span>
+              Phone Number
             </label>
             <input
               id="phone"

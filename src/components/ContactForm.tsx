@@ -32,9 +32,6 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
     } else if (!email.includes("@") || !email.includes(".")) {
       errs.email = "Please enter a valid email address.";
     }
-    if (!phone.trim()) {
-      errs.phone = "Phone number is required.";
-    }
     return errs;
   }
 
@@ -48,9 +45,9 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
     e.preventDefault();
     const errs = validate();
     setErrors(errs);
-    setTouched({ firstName: true, lastName: true, email: true, phone: true });
+    setTouched({ firstName: true, lastName: true, email: true });
     if (Object.keys(errs).length > 0) return;
-    onSubmit({ firstName: firstName.trim(), lastName: lastName.trim(), email: email.trim(), phone: phone.trim() });
+    onSubmit({ firstName: firstName.trim(), lastName: lastName.trim(), email: email.trim(), phone: phone.trim() || undefined });
   }
 
   const baseInputStyle: React.CSSProperties = {
@@ -198,7 +195,7 @@ export default function ContactForm({ onSubmit, accentColor }: ContactFormProps)
           {/* Phone */}
           <div>
             <label htmlFor="phone" style={labelStyle}>
-              Phone Number
+              Phone Number <span style={{ fontWeight: 400, color: "#A0A7B3" }}>(optional)</span>
             </label>
             <input
               id="phone"

@@ -61,10 +61,10 @@ export async function submitResults(
             selectedIndex !== undefined ? q.options[selectedIndex] : null;
           const answerText = selectedOption?.text ?? "Not answered";
           const answerScore = selectedOption?.score ?? 0;
-          return `<p style="margin:0 0 4px 0;"><strong style="color:#1B2B3A;">${escapeHtml(q.text)}</strong></p><p style="margin:0 0 14px 0;color:#475569;"><em>${escapeHtml(answerText)}</em> <span style="color:#94A3B8;font-style:normal;font-size:12px;">(${answerScore}/3)</span></p>`;
+          return `<div style="margin:0 0 22px 0;padding:0 0 0 14px;border-left:3px solid #E2E8F0;"><p style="margin:0 0 10px 0;line-height:1.5;"><strong style="color:#1B2B3A;font-size:14px;">${escapeHtml(q.text)}</strong></p><p style="margin:0;line-height:1.5;color:#475569;font-size:14px;"><em>${escapeHtml(answerText)}</em> <span style="color:#94A3B8;font-style:normal;font-size:12px;margin-left:4px;">(${answerScore}/3)</span></p></div>`;
         })
         .join("");
-      return `<h4 style="color:#01305C;font-size:14px;text-transform:uppercase;letter-spacing:0.08em;margin:20px 0 10px 0;border-bottom:1px solid #ECEEF2;padding-bottom:6px;">${escapeHtml(section.title)}</h4>${questionBlocks}`;
+      return `<h4 style="color:#01305C;font-size:13px;text-transform:uppercase;letter-spacing:0.1em;margin:32px 0 18px 0;border-bottom:2px solid #01305C;padding-bottom:8px;">${escapeHtml(section.title)}</h4>${questionBlocks}`;
     })
     .join("");
 

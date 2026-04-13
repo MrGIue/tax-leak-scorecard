@@ -74,12 +74,27 @@ export async function GET(req: NextRequest) {
       }
     }
 
+    const firstName = searchParams.get("first") ?? "";
+    const lastName = searchParams.get("last") ?? "";
+
     const ringSize = 260;
     const ringSvg = buildRingSvg(score, maxScore, tierColor, ringSize);
     const ringSrc = svgToDataUrl(ringSvg);
 
     const width = 1200;
-    const height = 900;
+    const heroHeight = 380;
+    const sectionBaseHeight = 180;
+    const rowHeight = 105;
+    const sectionCount = Math.max(sections.length, 1);
+    const height = heroHeight + sectionBaseHeight + sectionCount * rowHeight;
+
+    const safeName = [firstName, lastName]
+      .map((s) => s.replace(/[^a-zA-Z0-9]/g, "_").replace(/_+/g, "_"))
+      .filter(Boolean)
+      .join("_");
+    const filename = safeName
+      ? `${safeName}_Tax_Leak_Results.png`
+      : "Tax_Leak_Results.png";
 
     return new ImageResponse(
       (
@@ -328,6 +343,7 @@ export async function GET(req: NextRequest) {
         height,
         headers: {
           "Cache-Control": "public, max-age=31536000, immutable",
+          "Content-Disposition": `inline; filename="${filename}"`,
         },
       }
     );

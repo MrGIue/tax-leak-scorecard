@@ -1,0 +1,150 @@
+{
+  "name": "Tax Leak Scorecard - OaksFS",
+  "metadata": { "version": 1 },
+  "flow": [
+    {
+      "id": 1,
+      "module": "gateway:CustomWebhook",
+      "version": 1,
+      "parameters": { "hook": null, "maxResults": 1 },
+      "mapper": {},
+      "metadata": {
+        "designer": { "x": 0, "y": 0 },
+        "restore": {},
+        "parameters": [{ "name": "hook", "type": "hook:gateway-webhook", "label": "Webhook", "required": true }]
+      }
+    },
+    {
+      "id": 2,
+      "module": "gateway:WebhookRespond",
+      "version": 1,
+      "parameters": {},
+      "mapper": {
+        "body": "{\"status\":\"received\"}",
+        "status": "200",
+        "headers": [{ "key": "Content-Type", "value": "application/json" }]
+      },
+      "metadata": { "designer": { "x": 300, "y": 0 } }
+    },
+    {
+      "id": 3,
+      "module": "highlevel:searchContacts",
+      "version": 1,
+      "parameters": { "__IMTCONN__": null },
+      "mapper": {
+        "query": "{{1.email}}",
+        "locationId": "IHoUkcwII09SFZ5mhfT8",
+        "limit": "1"
+      },
+      "metadata": {
+        "designer": { "x": 600, "y": 0 },
+        "parameters": [{ "name": "__IMTCONN__", "type": "account:highlevel", "label": "Connection", "required": true }]
+      }
+    },
+    {
+      "id": 4,
+      "module": "builtin:BasicRouter",
+      "version": 1,
+      "parameters": {},
+      "mapper": null,
+      "metadata": { "designer": { "x": 900, "y": 0 } },
+      "routes": [
+        {
+          "flow": [
+            {
+              "id": 5,
+              "module": "highlevel:updateAContact",
+              "version": 1,
+              "parameters": { "__IMTCONN__": null },
+              "filter": {
+                "name": "Contact exists",
+                "conditions": [[{ "a": "{{3.contacts}}", "b": "0", "o": "number:notequal" }]]
+              },
+              "mapper": {
+                "contactId": "{{3.contacts[].id}}",
+                "firstName": "{{1.firstName}}",
+                "lastName": "{{1.lastName}}",
+                "email": "{{1.email}}",
+                "phone": "{{1.phone}}",
+                "tags": ["Tax Leak"]
+              },
+              "metadata": {
+                "designer": { "x": 1200, "y": -150 },
+                "parameters": [{ "name": "__IMTCONN__", "type": "account:highlevel", "label": "Connection", "required": true }]
+              }
+            },
+            {
+              "id": 7,
+              "module": "highlevel:addNotetoContact",
+              "version": 1,
+              "parameters": { "__IMTCONN__": null },
+              "mapper": {
+                "contactId": "{{3.contacts[].id}}",
+                "body": "Tax Leak Scorecard Results:\n- Score: {{1.totalScore}} / {{1.maxScore}}\n- Tier: {{1.tier}}\n- Completed: {{1.completedAt}}\n\nDetailed Answers:\n{{1.answers}}"
+              },
+              "metadata": {
+                "designer": { "x": 1500, "y": -150 },
+                "parameters": [{ "name": "__IMTCONN__", "type": "account:highlevel", "label": "Connection", "required": true }]
+              }
+            }
+          ]
+        },
+        {
+          "flow": [
+            {
+              "id": 6,
+              "module": "highlevel:createAContact",
+              "version": 1,
+              "parameters": { "__IMTCONN__": null },
+              "filter": {
+                "name": "Contact does NOT exist",
+                "conditions": [[{ "a": "{{3.contacts}}", "b": "0", "o": "number:equal" }]]
+              },
+              "mapper": {
+                "locationId": "IHoUkcwII09SFZ5mhfT8",
+                "firstName": "{{1.firstName}}",
+                "lastName": "{{1.lastName}}",
+                "email": "{{1.email}}",
+                "phone": "{{1.phone}}",
+                "tags": ["Tax Leak"]
+              },
+              "metadata": {
+                "designer": { "x": 1200, "y": 150 },
+                "parameters": [{ "name": "__IMTCONN__", "type": "account:highlevel", "label": "Connection", "required": true }]
+              }
+            },
+            {
+              "id": 8,
+              "module": "highlevel:addNotetoContact",
+              "version": 1,
+              "parameters": { "__IMTCONN__": null },
+              "mapper": {
+                "contactId": "{{6.id}}",
+                "body": "Tax Leak Scorecard Results:\n- Score: {{1.totalScore}} / {{1.maxScore}}\n- Tier: {{1.tier}}\n- Completed: {{1.completedAt}}\n\nDetailed Answers:\n{{1.answers}}"
+              },
+              "metadata": {
+                "designer": { "x": 1500, "y": 150 },
+                "parameters": [{ "name": "__IMTCONN__", "type": "account:highlevel", "label": "Connection", "required": true }]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "module": "google-email:sendAnEmail",
+      "version": 4,
+      "parameters": { "__IMTCONN__": null },
+      "mapper": {
+        "to": "info@oaksfs.com",
+        "subject": "New Tax Leak Scorecard: {{1.firstName}} {{1.lastName}} \u2014 {{1.tier}}",
+        "html": "<div style='font-family:Arial,sans-serif;max-width:640px;'><h2 style='color:#01305C;margin-bottom:16px;'>New Tax Leak Scorecard Submission</h2><table style='border-collapse:collapse;width:100%;margin-bottom:24px;'><tr><td style='padding:8px;border:1px solid #ddd;font-weight:bold;'>Name</td><td style='padding:8px;border:1px solid #ddd;'>{{1.firstName}} {{1.lastName}}</td></tr><tr><td style='padding:8px;border:1px solid #ddd;font-weight:bold;'>Email</td><td style='padding:8px;border:1px solid #ddd;'>{{1.email}}</td></tr><tr><td style='padding:8px;border:1px solid #ddd;font-weight:bold;'>Phone</td><td style='padding:8px;border:1px solid #ddd;'>{{1.phone}}</td></tr><tr><td style='padding:8px;border:1px solid #ddd;font-weight:bold;background:#fff3cd;'>Score</td><td style='padding:8px;border:1px solid #ddd;background:#fff3cd;font-weight:bold;'>{{1.totalScore}} / {{1.maxScore}}</td></tr><tr><td style='padding:8px;border:1px solid #ddd;font-weight:bold;background:#fff3cd;'>Tier</td><td style='padding:8px;border:1px solid #ddd;background:#fff3cd;font-weight:bold;'>{{1.tier}}</td></tr><tr><td style='padding:8px;border:1px solid #ddd;font-weight:bold;'>Submitted</td><td style='padding:8px;border:1px solid #ddd;'>{{1.completedAt}}</td></tr></table><h3 style='color:#01305C;margin:24px 0 12px;'>Visual Results</h3><img src='{{1.imageUrl}}' alt='Tax Leak Scorecard Results' width='600' style='display:block;width:100%;max-width:600px;height:auto;border:1px solid #ECEEF2;border-radius:8px;margin-bottom:24px;' /><h3 style='color:#01305C;margin:24px 0 12px;'>Detailed Answers</h3><pre style='white-space:pre-wrap;font-family:Arial,sans-serif;font-size:13px;line-height:1.6;color:#333;background:#F7F9FC;padding:16px;border-radius:6px;border:1px solid #ECEEF2;'>{{1.answers}}</pre><p style='font-size:12px;color:#888;margin-top:24px;'>Submitted via the Tax Leak Scorecard on your website.</p></div>"
+      },
+      "metadata": {
+        "designer": { "x": 1800, "y": 0 },
+        "parameters": [{ "name": "__IMTCONN__", "type": "account:google-restricted", "label": "Connection", "required": true }]
+      }
+    }
+  ]
+}
